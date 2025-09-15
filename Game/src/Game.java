@@ -1,23 +1,33 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Game {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        Random r = new Random();
         SimpleGame sg = new SimpleGame();
-        int[] locations = {3, 4, 5};
+
+
+        int num = r.nextInt(4);
+        int[] locations = {num, num + 1, num + 2};
         sg.setLocationCells(locations);
         String testResult = "failed";
+        int guessNumber = 0;
+        boolean isAlive = true;
 
-        while (true) {
+
+        while (isAlive) {
             int guessUser = in.nextInt();
+            guessNumber++;
             String result = sg.CheckYourSelf(guessUser);
             System.out.println(result);
             if (result.equals("kill")) {
                 testResult = "passed";
-                break;
+                isAlive = false;
             }
         }
         System.out.println(testResult);
+        System.out.printf("You took %d guesses", guessNumber);
         in.close();
     }
 }
